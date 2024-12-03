@@ -1,0 +1,56 @@
+<div class="tool-bar">
+
+	<img
+		src="https://s-cloudfront.cdn.ap.panopto.com/sessions/_branding/823ca9be-cf06-4f09-9182-acf60045ea8e/637543669628126231_largelogo.png"
+		style="height: 56px;" alt="">
+	<span class="example-spacer"></span>
+
+	<div class="d-flex gap-1 search p-2 col-sm-12 col-md-4 d-flex justify-content-center align-items-center">
+		<input id="input-search" type="search" style="font-size: 14px;" placeholder="Search..." aria-label="Search">
+	</div>
+	<span class="example-spacer"></span>
+	<button mat-icon-button class="example-icon" style="padding-right: 10px;"
+		aria-label="Example icon-button with share icon">
+		<span style="color: #fefefe;">SN</span>
+	</button>
+</div>
+
+<div class="gallery-container" *ngIf="!isDialogOpen">
+	<div class="card" [class.selected]="image.id === imageId" (click)="onCard(image)" *ngFor="let image of images">
+		<div class="card-header">
+			<button (click)="onEdit(image)" class="edit-btn">
+				✏️
+			</button>
+
+		</div>
+		<img [src]="image.previewURL" alt="Preview" class="card-image" />
+		<div
+			style="display: flex; justify-content: center; padding: 10px; font-weight: bold; flex-direction: column; align-items:first baseline;">
+			<span>{{image.name}}</span>
+			<span>Extention: PSD</span>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div *ngIf="isDialogOpen" class="dialog-backdrop" (onKeyPress)="closeDialog()"></div>
+	<div *ngIf="isDialogOpen" class="full-screen-dialog">
+		<div style="display: flex; align-items: center;"
+			[ngStyle]="!isLoading ? {'display': 'none'} : {'display': 'Block'}">
+			<div style="display: flex; align-items: center;">
+				<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i>
+				<span>Preparing the model<span class="dots">...</span></span>
+			</div>
+		</div>
+
+
+		<div class="sketchfab-container">
+			<iframe id="photopea" src="https://www.photopea.com#%7B%22files%22%3A%5B%22%22%5D%2C%22environment%22%3A%7B%7D%7D"
+				#photopea class="sketchfab-frame" allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>
+		</div>
+		<div style="display: flex; gap:10px" class="class-button">
+			<button (click)="closeDialog()">Close <i class="fa-solid fa-rectangle-xmark"></i></button>
+			<button (click)="save()">Save <i class="fa fa-save"></i></button>
+		</div>
+
+	</div>
+</div>
